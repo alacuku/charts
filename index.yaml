@@ -23,6 +23,38 @@ entries:
     version: 0.3.1
   falco:
   - apiVersion: v2
+    appVersion: 0.37.0
+    created: "2024-02-06T14:36:31.523305917Z"
+    dependencies:
+    - condition: falcosidekick.enabled
+      name: falcosidekick
+      repository: https://falcosecurity.github.io/charts
+      version: 0.7.11
+    - condition: collectors.kubernetes.enabled
+      name: k8s-metacollector
+      repository: https://falcosecurity.github.io/charts
+      version: 0.1.*
+    description: Falco
+    digest: d8ef48fbf9b357199b4b6fc3b0ec01784c43926cb550aac5fd01f86ccda51c6b
+    home: https://falco.org
+    icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/falco/horizontal/color/falco-horizontal-color.svg
+    keywords:
+    - monitoring
+    - security
+    - alerting
+    - metric
+    - troubleshooting
+    - run-time
+    maintainers:
+    - email: cncf-falco-dev@lists.cncf.io
+      name: The Falco Authors
+    name: falco
+    sources:
+    - https://github.com/falcosecurity/falco
+    urls:
+    - https://github.com/alacuku/charts/releases/download/falco-4.1.0/falco-4.1.0.tgz
+    version: 4.1.0
+  - apiVersion: v2
     appVersion: 0.36.2
     created: "2024-01-03T15:52:59.45687735Z"
     dependencies:
@@ -2002,6 +2034,28 @@ entries:
   falco-exporter:
   - apiVersion: v2
     appVersion: 0.8.3
+    created: "2024-02-06T14:36:31.651243148Z"
+    description: Prometheus Metrics Exporter for Falco output events
+    digest: e341c213cb8920b17aeb84063a68ffcfd9f62c0d3d56e0b7e49d131a4489eb24
+    keywords:
+    - monitoring
+    - security
+    - alerting
+    - metric
+    - troubleshooting
+    - run-time
+    maintainers:
+    - email: me@leonardograsso.com
+      name: leogr
+    name: falco-exporter
+    sources:
+    - https://github.com/falcosecurity/falco-exporter
+    type: application
+    urls:
+    - https://github.com/alacuku/charts/releases/download/falco-exporter-0.9.9/falco-exporter-0.9.9.tgz
+    version: 0.9.9
+  - apiVersion: v2
+    appVersion: 0.8.3
     created: "2024-02-05T15:16:47.828212574Z"
     description: Prometheus Metrics Exporter for Falco output events
     digest: 166e6667d08ffd72e7806da3318dbcfe2ef19b469c54457b616f430eb9e253d0
@@ -3746,4 +3800,4 @@ entries:
     urls:
     - https://github.com/alacuku/charts/releases/download/k8s-metacollector-0.1.2/k8s-metacollector-0.1.2.tgz
     version: 0.1.2
-generated: "2024-02-05T15:16:47.93652229Z"
+generated: "2024-02-06T14:36:31.651681525Z"
