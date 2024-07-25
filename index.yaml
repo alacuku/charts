@@ -34,6 +34,38 @@ entries:
   falco:
   - apiVersion: v2
     appVersion: 0.38.1
+    created: "2024-07-25T08:27:43.725033188Z"
+    dependencies:
+    - condition: falcosidekick.enabled
+      name: falcosidekick
+      repository: https://falcosecurity.github.io/charts
+      version: 0.8.2
+    - condition: collectors.kubernetes.enabled
+      name: k8s-metacollector
+      repository: https://falcosecurity.github.io/charts
+      version: 0.1.*
+    description: Falco
+    digest: 80c74b947f2efd51c0a23ece0facb48e1c4f5d0d3760fac50bb6c3a66784376d
+    home: https://falco.org
+    icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/falco/horizontal/color/falco-horizontal-color.svg
+    keywords:
+    - monitoring
+    - security
+    - alerting
+    - metric
+    - troubleshooting
+    - run-time
+    maintainers:
+    - email: cncf-falco-dev@lists.cncf.io
+      name: The Falco Authors
+    name: falco
+    sources:
+    - https://github.com/falcosecurity/falco
+    urls:
+    - https://github.com/alacuku/charts/releases/download/falco-4.6.1/falco-4.6.1.tgz
+    version: 4.6.1
+  - apiVersion: v2
+    appVersion: 0.38.1
     created: "2024-06-24T12:03:07.732453463Z"
     dependencies:
     - condition: falcosidekick.enabled
@@ -2300,6 +2332,28 @@ entries:
   falco-exporter:
   - apiVersion: v2
     appVersion: 0.8.3
+    created: "2024-07-25T08:27:43.838131961Z"
+    description: Prometheus Metrics Exporter for Falco output events
+    digest: e053f6ebc4d6f7c7c15fc7524290068562d7c75fd3c9d53d4d57d409ac17be97
+    keywords:
+    - monitoring
+    - security
+    - alerting
+    - metric
+    - troubleshooting
+    - run-time
+    maintainers:
+    - email: me@leonardograsso.com
+      name: leogr
+    name: falco-exporter
+    sources:
+    - https://github.com/falcosecurity/falco-exporter
+    type: application
+    urls:
+    - https://github.com/alacuku/charts/releases/download/falco-exporter-0.12.0/falco-exporter-0.12.0.tgz
+    version: 0.12.0
+  - apiVersion: v2
+    appVersion: 0.8.3
     created: "2024-06-05T09:21:13.075898758Z"
     description: Prometheus Metrics Exporter for Falco output events
     digest: d78324edaf9ed9a47d1f33792c9fe845006e78cb155d3df066b7858e80dfe41e
@@ -2937,6 +2991,26 @@ entries:
     - https://github.com/falcosecurity/charts/releases/download/falco-exporter-0.3.0/falco-exporter-0.3.0.tgz
     version: 0.3.0
   falcosidekick:
+  - apiVersion: v1
+    appVersion: 2.29.0
+    created: "2024-07-25T08:27:43.983669997Z"
+    description: Connect Falco to your ecosystem
+    digest: 36fc3b826bde974c996187afc85c689c96eca350bc547172e605ccba571b92fd
+    home: https://github.com/falcosecurity/falcosidekick
+    icon: https://raw.githubusercontent.com/falcosecurity/falcosidekick/master/imgs/falcosidekick_color.png
+    keywords:
+    - monitoring
+    - security
+    - alerting
+    maintainers:
+    - email: cncf-falco-dev@lists.cncf.io
+      name: Issif
+    name: falcosidekick
+    sources:
+    - https://github.com/falcosecurity/falcosidekick
+    urls:
+    - https://github.com/alacuku/charts/releases/download/falcosidekick-0.8.3/falcosidekick-0.8.3.tgz
+    version: 0.8.3
   - apiVersion: v1
     appVersion: 2.28.0
     created: "2024-06-19T07:53:34.867538092Z"
@@ -4160,6 +4234,23 @@ entries:
   k8s-metacollector:
   - apiVersion: v2
     appVersion: 0.1.1
+    created: "2024-07-25T08:27:44.094665673Z"
+    description: Install k8s-metacollector to fetch and distribute Kubernetes metadata
+      to Falco instances.
+    digest: 929d6ac53473f23d46981fd9ee8864de59ad7a57a8eebd02d11caa027a5e6b64
+    home: https://github.com/falcosecurity/k8s-metacollector
+    maintainers:
+    - email: cncf-falco-dev@lists.cncf.io
+      name: The Falco Authors
+    name: k8s-metacollector
+    sources:
+    - https://github.com/falcosecurity/k8s-metacollector
+    type: application
+    urls:
+    - https://github.com/alacuku/charts/releases/download/k8s-metacollector-0.1.9/k8s-metacollector-0.1.9.tgz
+    version: 0.1.9
+  - apiVersion: v2
+    appVersion: 0.1.1
     created: "2024-06-06T12:54:13.762723124Z"
     description: Install k8s-metacollector to fetch and distribute Kubernetes metadata
       to Falco instances.
@@ -4209,4 +4300,4 @@ entries:
     urls:
     - https://github.com/alacuku/charts/releases/download/k8s-metacollector-0.1.2/k8s-metacollector-0.1.2.tgz
     version: 0.1.2
-generated: "2024-06-24T12:03:07.733040915Z"
+generated: "2024-07-25T08:27:44.095183153Z"
