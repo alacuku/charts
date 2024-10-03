@@ -43,6 +43,38 @@ entries:
     version: 0.3.1
   falco:
   - apiVersion: v2
+    appVersion: 0.39.0
+    created: "2024-10-03T07:43:07.102957259Z"
+    dependencies:
+    - condition: falcosidekick.enabled
+      name: falcosidekick
+      repository: https://falcosecurity.github.io/charts
+      version: 0.8.*
+    - condition: collectors.kubernetes.enabled
+      name: k8s-metacollector
+      repository: https://falcosecurity.github.io/charts
+      version: 0.1.*
+    description: Falco
+    digest: bea7ada727d7b6a4932bbe07805c01fc4970d427b15ee2472fca9add5773d5bf
+    home: https://falco.org
+    icon: https://raw.githubusercontent.com/cncf/artwork/master/projects/falco/horizontal/color/falco-horizontal-color.svg
+    keywords:
+    - monitoring
+    - security
+    - alerting
+    - metric
+    - troubleshooting
+    - run-time
+    maintainers:
+    - email: cncf-falco-dev@lists.cncf.io
+      name: The Falco Authors
+    name: falco
+    sources:
+    - https://github.com/falcosecurity/falco
+    urls:
+    - https://github.com/alacuku/charts/releases/download/falco-4.9.0/falco-4.9.0.tgz
+    version: 4.9.0
+  - apiVersion: v2
     appVersion: 0.38.2
     created: "2024-08-28T07:11:56.586025579Z"
     dependencies:
@@ -3067,6 +3099,26 @@ entries:
   falcosidekick:
   - apiVersion: v1
     appVersion: 2.29.0
+    created: "2024-10-03T07:43:07.237362308Z"
+    description: Connect Falco to your ecosystem
+    digest: 52b70a01e2a022bf7902403c01b561f8c7fc79c0c3cb36905cc5ffdb270c6c45
+    home: https://github.com/falcosecurity/falcosidekick
+    icon: https://raw.githubusercontent.com/falcosecurity/falcosidekick/master/imgs/falcosidekick_color.png
+    keywords:
+    - monitoring
+    - security
+    - alerting
+    maintainers:
+    - email: cncf-falco-dev@lists.cncf.io
+      name: Issif
+    name: falcosidekick
+    sources:
+    - https://github.com/falcosecurity/falcosidekick
+    urls:
+    - https://github.com/alacuku/charts/releases/download/falcosidekick-0.8.8/falcosidekick-0.8.8.tgz
+    version: 0.8.8
+  - apiVersion: v1
+    appVersion: 2.29.0
     created: "2024-08-28T07:11:56.732090987Z"
     description: Connect Falco to your ecosystem
     digest: 3d66a08c5501228efb4531e99a3a9cf8a7bf50ab9641c852d44dc8ec56c26213
@@ -4411,4 +4463,4 @@ entries:
     urls:
     - https://github.com/alacuku/charts/releases/download/k8s-metacollector-0.1.2/k8s-metacollector-0.1.2.tgz
     version: 0.1.2
-generated: "2024-08-28T07:11:56.844161426Z"
+generated: "2024-10-03T07:43:07.237828089Z"
