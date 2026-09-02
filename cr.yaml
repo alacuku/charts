@@ -1,3 +1,9 @@
 # Enable automatic generation of release notes using GitHubs release notes generator.
 # see: https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes
 generate-release-notes: true
+
+# Pinned explicitly (this is chart-releaser's own default) because the
+# "Publish and Sign OCI Charts" step in release.yml reconstructs this same
+# release name to look up the GitHub release it needs to sign/annotate.
+# Do not change this without updating that workflow step too.
+release-name-template: "{{ .Name }}-{{ .Version }}"

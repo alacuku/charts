@@ -45,6 +45,10 @@ jobs:
         with:
           charts_dir: charts
           config: cr.yaml
+          # "Latest" and pre-release status are decided per chart in the
+          # "Publish and Sign OCI Charts" step below, from each package's own
+          # metadata rather than a guess about what this push touched.
+          mark_as_latest: false
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
@@ -57,12 +61,53 @@ jobs:
 
       - name: Publish and Sign OCI Charts
         run: |
-          for chart in `find .cr-release-packages -name '*.tgz' -print`; do
-            helm push ${chart} oci://ghcr.io/${GITHUB_REPOSITORY} |& tee helm-push-output.log
-            file_name=${chart##*/}
-            chart_name=${file_name%-*}
+          overall_failed=false
+
+          # A plain glob, not `find`, so every "${chart}" expansion below stays
+          # a single well-formed word with no quoting/splitting edge cases.
+          for chart in .cr-release-packages/*.tgz; do
+            [[ -e "${chart}" ]] || continue
+
+            # Read name/version from the package's own Chart.yaml via `yq`
+            if ! chart_meta=$(helm show chart "${chart}"); then
+              echo "::error::helm show chart failed for ${chart}, skipping"
+              overall_failed=true
+              continue
+            fi
+            read -r chart_name chart_version <<< "$(yq -r '.name + " " + .version' <<< "${chart_meta}")"
+
+            if ! helm push "${chart}" "oci://ghcr.io/${GITHUB_REPOSITORY}" |& tee helm-push-output.log; then
+              echo "::error::helm push failed for ${chart}, skipping"
+              overall_failed=true
+              continue
+            fi
             digest=$(awk -F "[, ]+" '/Digest/{print $NF}' < helm-push-output.log)
-            cosign sign "ghcr.io/${GITHUB_REPOSITORY}/${chart_name}@${digest}"
+
+            if ! cosign sign "ghcr.io/${GITHUB_REPOSITORY}/${chart_name}@${digest}"; then
+              echo "::error::cosign sign failed for ${chart_name}@${digest}, skipping"
+              overall_failed=true
+              continue
+            fi
+
+            # chart-releaser has no native way to flag a GitHub release as a
+            # pre-release (see helm/chart-releaser#579), and mark_as_latest is
+            # disabled repo-wide above, so both are set here per chart instead.
+            release_tag="${chart_name}-${chart_version}"
+            if [[ "${chart_version}" =~ ^[0-9]+\.[0-9]+\.[0-9]+-.+ ]]; then
+              gh_flags=(--prerelease --latest=false)
+            else
+              gh_flags=(--latest)
+            fi
+            if ! gh release edit "${release_tag}" "${gh_flags[@]}" --repo "${GITHUB_REPOSITORY}"; then
+              echo "::error::gh release edit failed for ${release_tag}"
+              overall_failed=true
+            fi
           done
+
+          if [[ "${overall_failed}" == true ]]; then
+            echo "::error::one or more charts failed to publish, sign, or have their release annotated; see above"
+            exit 1
+          fi
         env:
           COSIGN_YES: true
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
