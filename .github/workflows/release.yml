@@ -76,6 +76,11 @@ jobs:
               continue
             fi
             read -r chart_name chart_version <<< "$(yq -r '.name + " " + .version' <<< "${chart_meta}")"
+            if [[ -z "${chart_name}" || -z "${chart_version}" ]]; then
+              echo "::error::could not read chart name/version from ${chart}, skipping"
+              overall_failed=true
+              continue
+            fi
 
             if ! helm push "${chart}" "oci://ghcr.io/${GITHUB_REPOSITORY}" |& tee helm-push-output.log; then
               echo "::error::helm push failed for ${chart}, skipping"
