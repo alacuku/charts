@@ -61,6 +61,7 @@ jobs:
 
       - name: Publish and Sign OCI Charts
         run: |
+          set -o pipefail
           overall_failed=false
 
           # A plain glob, not `find`, so every "${chart}" expansion below stays
